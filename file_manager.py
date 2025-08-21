@@ -3,9 +3,6 @@ import shutil
 import glob
 from shutil import SameFileError
 
-# run the user's program in our generated folders
-# os.chdir("module/root_folder")
-
 
 def list_f_and_dir(options):
     folders_and_files = os.listdir()
