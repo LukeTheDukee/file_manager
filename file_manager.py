@@ -4,7 +4,14 @@ import glob
 from shutil import SameFileError
 
 
-def list_f_and_dir(options):
+"""
+A simple command-line file manager that supports basic operations like listing files,
+switching directories, removing files/directories, moving files/directories,
+storing files/directories, and copying files/directories.
+"""
+
+
+def list_f_and_dir(options):  # Function to list files and directories
     folders_and_files = os.listdir()
     file_list = []
     directory_list = []
@@ -39,6 +46,7 @@ def list_f_and_dir(options):
                 print(f"{file} {size // (1024**3)}GB")
 
 
+# Function to change directories
 def manipulate_directory(option):
     if len(option) < 2:
         print("Invalid command")  # Handle missing path
@@ -56,6 +64,7 @@ def manipulate_directory(option):
         print("Invalid path")  # Handle invalid path
 
 
+# Function to prompt user in case file exists
 def prompt_user(file):
     print(
         f"{file} already exists in this directory. Replace? (y/n): ", end="", flush=True
@@ -64,6 +73,7 @@ def prompt_user(file):
     return user_input
 
 
+# FDunction to remove files or directories
 def remove_file(option):
     if len(option) < 2:
         print("Specify the file or directory")  # Handle missing path
@@ -97,6 +107,7 @@ def remove_file(option):
         os.remove(path)
 
 
+# Function to move or rename files or directories
 def move_file(option):
     if len(option) != 3:
         print(
@@ -143,6 +154,7 @@ def move_file(option):
         print("No such file or directory")
 
 
+# Function to create a new directory
 def make_directory(option):
     if len(option) < 2:
         # Handle missing path
@@ -158,6 +170,7 @@ def make_directory(option):
         os.mkdir(path)
 
 
+# Function to copy files or directories
 def copy_file(option):
     if len(option) < 3:
         print(
@@ -211,43 +224,44 @@ def copy_file(option):
             return
 
 
-# Loop to get the file manager running
-counter = 0
+# Main loop to process user commands
+if __name__ == "__main__":
+    counter = 0
 
-print("Input the command")
+    print("Input the command")
 
-while True:
-    input_command = input().split()
+    while True:  # Loop to get the file manager running
+        input_command = input().split()
 
-    if not input_command:
-        continue  # Skip empty input
+        if not input_command:
+            continue  # Skip empty input
 
-    command = input_command[0]
+        command = input_command[0]
 
-    match command:
-        case "break":
-            break
+        match command:
+            case "break":
+                break
 
-        case "pwd":
-            print(os.getcwd())
+            case "pwd":
+                print(os.getcwd())
 
-        case "ls":
-            list_f_and_dir(input_command)
+            case "ls":
+                list_f_and_dir(input_command)
 
-        case "cd":
-            manipulate_directory(input_command)
+            case "cd":
+                manipulate_directory(input_command)
 
-        case "rm":
-            remove_file(input_command)
+            case "rm":
+                remove_file(input_command)
 
-        case "mv":
-            move_file(input_command)
+            case "mv":
+                move_file(input_command)
 
-        case "mkdir":
-            make_directory(input_command)
+            case "mkdir":
+                make_directory(input_command)
 
-        case "cp":
-            copy_file(input_command)
+            case "cp":
+                copy_file(input_command)
 
-        case _:
-            print("Invalid command")  # Handle unknown commands
+            case _:
+                print("Invalid command")  # Handle unknown commands
